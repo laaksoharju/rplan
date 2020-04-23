@@ -1,0 +1,31 @@
+﻿diagnosis,plan_max,plan_min
+'Blåsa/Testis - nybesök',104,34
+'Blåsa/Testis - återbesök',208,117
+'Bröst  - nybesök',416,268
+'Bröst - återbesök',1092,810
+'CNS - nybesök',104,23
+'CNS - återbesök',364,217
+'Ej onkologen  - nybesök',156,83
+'Ej onkologen - återbesök',1768,1026
+'Esofagus  - nybesök',52,23
+'Esofagus - återbesök',156,96
+'HeadNeck  - nybesök',156,54
+'HeadNeck - återbesök',260,170
+'Hud  - nybesök',156,67
+'Hud - återbesök',416,253
+'Lokal UNS  - nybesök',104,52
+'Lokal UNS - återbesök',468,219
+'Lunga - nybesök',260,86
+'Lunga - återbesök',780,575
+'Lymfom - nybesök',156,56
+'Lymfom - återbesök',364,604
+'NGI - nybesök',156,162
+'NGI - återbesök',884,594
+'Prostata/Njure - nybesök',260,213
+'Prostata/Njure - återbesök',884,446
+'Sarkom - nybesök',364,12
+'Sarkom - återbesök',624,97
+'Thyroidea - nybesök',52,16
+'Thyroidea - återbesök',208,88
+'ÖGI - nybesök',52,86
+'ÖGI - återbesök',156,387
