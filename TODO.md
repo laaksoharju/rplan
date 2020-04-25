@@ -1,6 +1,6 @@
 # TODO
 
-[ ] Make days selectable
+[x] Make days selectable
 
 [ ] Make propagation work
 
