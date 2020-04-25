@@ -24,14 +24,16 @@
       </div>
     </div>
     <div class="overview">
-      <label>
-      <input type="checkbox" class="filter" v-model="showStaff">
-      <span class="filter-staff"> ✔ </span> Staff
-      </label>
-      <label>
-      <input type="checkbox" class="filter" v-model="showRooms">
-      <span class="filter-rooms"> ✔ </span> Rooms
-      </label>
+      <div class="filter-box">
+        <label>
+        <input type="checkbox" class="filter" v-model="showStaff">
+        <span class="filter-staff"> ✔ </span> Staff
+        </label>
+        <label>
+        <input type="checkbox" class="filter" v-model="showRooms">
+        <span class="filter-rooms"> ✔ </span> Rooms
+        </label>
+      </div>
       <div class="year care">
         <div title="nominal week">
           N
@@ -186,6 +188,9 @@ export default {
 }
 </script>
 <style scoped>
+  .filter-box {
+    margin-left: 16em;
+  }
   .filter {
     display: none;
   }
