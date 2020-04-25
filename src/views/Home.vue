@@ -1,7 +1,15 @@
 <template>
   <div>
-    <div class="selection"></div>
-    {{startCoords}} {{endCoords}}
+    <div class="changeValueModal" v-show="changeValueEnabled">
+      <p>Add a new value for selected days.</p>
+      <input type="text" v-model="newValue">
+      <button @click="cancelChangeValues"> 
+        Cancel
+      </button> 
+      <button @click="changeSelectedValues"> 
+        Change selected
+      </button> 
+    </div>
     <div class="year care">
       <div class="week" type="text" v-for="week in 52" :key="'n' + week">
         {{ week }}
@@ -13,7 +21,7 @@
       </div>
       <input class="guesswork" type="text" v-model="item.no_visits">
 <!--       <input class="plan" type="text" v-for="week in 52" :key="week" v-model="item['w_' + week]" :title="prognosisPatCalc[index]['w_' + week]"> -->
-      <div :class="['plan-wrapper', {selected: false && isSelected[week][index]}]" v-for="week in 52" :key="week"
+      <div v-for="week in 52" :class="['plan-wrapper', {selected: isSelected(week, index)}]" :key="week"
       @mousedown="setStartCoords(week, index)" @mouseup="setEndCoords()" @mouseover="setSelected(week, index)">
         <div class="plan" :style="{height:(item['w_' + week]*100)+'%'}" :title="prognosisPatCalc[index]['w_' + week]">
         </div>
@@ -56,9 +64,10 @@ export default {
     return {
       prognosisPat: [],
       prognosisStaff: [],
-      isSelected: new Array(52).fill(new Array(31)).fill(null),
       startCoords: {x: null, y: null},
-      endCoords: {x: null, y: null},
+      endCoords: {x: 1, y: 1},
+      changeValueEnabled: false,
+      newValue: 1,
     }
   },
   computed: {
@@ -81,23 +90,39 @@ export default {
   },
   methods: {
     setStartCoords: function (x, y) {
-      this.startCoords = {x: x, y: y}
+      this.startCoords = {x: x, y: y};
+      this.endCoords = {x: x, y: y};
       this.selecting = true;
+    },
+    setSelected: function (x, y) {
+      if (this.selecting) {
+        this.endCoords = {x: x, y: y};
+      }
     },
     setEndCoords: function () {
       this.selecting = false;
+      this.changeValueEnabled = true;
     },
-    setSelected: function (x, y) {
-      if (!this.selecting) {
+    isSelected: function (x, y) {
+      if (this.startCoords.x === null)
         return false;
-      }
-      this.endCoords = {x: x, y: y};
       let coordsMin = {x: Math.min(this.startCoords.x, this.endCoords.x), y: Math.min(this.startCoords.y, this.endCoords.y)}
       let coordsMax = {x: Math.max(this.startCoords.x, this.endCoords.x), y: Math.max(this.startCoords.y, this.endCoords.y)}
       if (x >= coordsMin.x && x <= coordsMax.x &&
           y >= coordsMin.y && y <= coordsMax.y)
         return true;
       return false;
+    },
+    changeSelectedValues: function () {
+      let coordsMin = {x: Math.min(this.startCoords.x, this.endCoords.x), y: Math.min(this.startCoords.y, this.endCoords.y)}
+      let coordsMax = {x: Math.max(this.startCoords.x, this.endCoords.x), y: Math.max(this.startCoords.y, this.endCoords.y)}
+      for(let index = coordsMin.y; index <= coordsMax.y; index += 1)
+        for(let week = coordsMin.x; week <= coordsMax.x; week += 1)
+          this.prognosisStaff[index]['w_'+ week] = this.newValue;
+
+    },
+    cancelChangeValues: function () {
+
     }
   }
 }
@@ -105,8 +130,7 @@ export default {
 <style scoped>
   .care {
     display: grid;
-    grid-column-gap: 1px;
-    margin-bottom: 0.5em;
+    grid-column-gap: 0;
     user-select: none;
   }
     .capacity {
