@@ -6,21 +6,36 @@
           ✕
         </button> 
         <p>Add new values for selected days.</p>
-        <label>
-          <input type="checkbox" v-model="setNewValueStaff"> Staff
-        </label>
-        <input type="number" v-model="newValueStaff"> %
-        <label>
-          <input type="checkbox" v-model="setNewValueRooms"> Rooms
-        </label>
-          <input type="number" v-model="newValueRooms"> %
+        <div class="modal-section">
+          <label>
+            <input type="checkbox" v-model="setNewValueStaff"> Staff
+          </label>
+          <input type="number" min="0" max="100" @input="setNewValueStaff = true" v-model="newValueStaff"> %
+        </div>
+        <div class="modal-section">
+          <label>
+            <input type="checkbox" v-model="setNewValueRooms"> Rooms
+          </label>
+          <input type="number" min="0" max="100" @input="setNewValueRooms = true" v-model="newValueRooms"> %
+        </div>
         <button class="change-button" @click="changeSelectedValues"> 
           Change selected
         </button> 
       </div>
     </div>
     <div class="overview">
+      <label>
+      <input type="checkbox" class="filter" v-model="showStaff">
+      <span class="filter-staff"> ✔ </span> Staff
+      </label>
+      <label>
+      <input type="checkbox" class="filter" v-model="showRooms">
+      <span class="filter-rooms"> ✔ </span> Rooms
+      </label>
       <div class="year care">
+        <div title="nominal week">
+          N
+        </div>
         <div :class="['week', {highlighted: isHighlighted(week)}]" type="text" v-for="week in 52" :key="'n' + week">
           {{ week }}
         </div>
@@ -29,14 +44,17 @@
         <div class="diagnosis">
           {{item.diagnosis}}
         </div>
+        <div>
+          {{prognosisPat[index].tid}}
+        </div>
         <input class="guesswork" type="text" v-model="item.no_visits">
   <!--       <input class="plan" type="text" v-for="week in 52" :key="week" v-model="item['w_' + week]" :title="prognosisPatCalc[index]['w_' + week]"> -->
         <div v-for="week in 52" :class="['plan-wrapper', {highlighted: isHighlighted(week)}, {selected: isSelected(week, index)}]" :key="week"
         @mousedown="setStartCoords(week, index)" @mouseup="setEndCoords()" @mouseover="setSelected(week, index)">
-          <div class="plan staff" :style="{height:(item['w_' + week]*100)+'%'}" :title="prognosisPatCalc[index]['w_' + week]">
+          <div v-if="showStaff" class="plan staff" :style="{height:(item['w_' + week]*100)+'%'}" :title="prognosisPatCalc[index]['w_' + week]">
             .
           </div>
-          <div class="plan room" :style="{height:(prognosisRooms[index]['w_' + week]*100)+'%'}">
+          <div v-if="showRooms" class="plan room" :style="{height:(prognosisRooms[index]['w_' + week]*100)+'%'}">
             .
           </div>
         </div>
@@ -50,7 +68,7 @@
     </div>
     <div @mouseover="setEndCoords()">
       <!--stupid hack. fix!-->
-      &nbsp;
+      Planned appointment hours per week: {{ sumTime }}
     </div>
 <!--     <p>&nbsp;</p>
     <div class="care need" v-for="(item, index) in prognosisPatCalc" :key="'p' + index">
@@ -84,18 +102,27 @@ export default {
       newValueRooms: 100,
       setNewValueStaff: false,
       setNewValueRooms: false,
-      highlightedWeek: 0
+      highlightedWeek: 0,
+      showStaff: true,
+      showRooms: false
     }
   },
   computed: {
     prognosisPatCalc: function () {
       return this.prognosisPat.map(function(d, j) {
         d.sum = 0;
-        for (let i = 1; i<53; i ++) {
+        for (let i = 1; i<=52; i ++) {
           d["w_" + i] = this.prognosisStaff[j]["w_" + i] * this.prognosisStaff[j].no_visits
           d.sum += d["w_" + i]
         }
         return d}.bind(this))
+    },
+    sumTime: function() {
+      let sum = 0;
+      for (let i = 0; i < this.prognosisStaff.length; i ++) {
+        sum += this.prognosisPat[i].tid * this.prognosisStaff[i].no_visits;
+      }
+      return Math.floor(sum / 60) + ":" + sum % 60;
     }
   },
   created: function () {
@@ -159,13 +186,39 @@ export default {
 }
 </script>
 <style scoped>
+  .filter {
+    display: none;
+  }
+  .filter-staff, .filter-rooms {
+    border-radius: 3px;
+    color:transparent;
+    user-select: none;   
+    margin-right: 0.5em;
+    margin-left: 1em;
+    padding: 0 0 0 0.2em;
+  }
+
+  input[type="checkbox"] + .filter-staff {
+    background:steelblue;
+  }
+
+  input[type="checkbox"] + .filter-rooms {
+    background:maroon;
+  }
+
+  input[type="checkbox"]:checked + .filter-staff, 
+  input[type="checkbox"]:checked + .filter-rooms {
+    color:white;
+    user-select: none;
+  }
+
   .care {
     display: grid;
     grid-column-gap: 0;
     user-select: none;
   }
     .capacity {
-    grid-template-columns: 14em 2.5em repeat(52, calc(1.5em)) 2.5em 2.5em;
+    grid-template-columns: 11.5em 2.5em 2.5em repeat(52, calc(1.5em)) 2.5em 2.5em;
   }
   .need {
     grid-template-columns: 14em 2.5em 2.5em repeat(auto-fit, calc(1.5em)) 
@@ -190,9 +243,6 @@ export default {
   }
   .room {
     background-color: maroon;
-  }
-  .selected {
-    background-color: rgba(255,255,0,0.5);
   }
 
   input[type='text'] {
@@ -232,8 +282,8 @@ export default {
   }
   .year {
     display: grid;
-    grid-template-columns: repeat(52, calc(1.5em));
-    margin-left:16.5em;
+    grid-template-columns: 2.5em repeat(52, calc(1.5em));
+    margin-left:14em;
 
   }
   .diagnosis {
@@ -246,6 +296,10 @@ export default {
 
   .care:hover, .highlighted {
     background-color: rgba(255,0,0,0.1);
+  }
+
+  .selected {
+    background-color: rgba(255,255,0,0.5);
   }
 
   .change-value-modal {
@@ -276,12 +330,17 @@ export default {
     margin: 0; 
   }
   .modal-box input[type=number] {
-    width:2em;
+    width:1.5em;
     font-size: 2em;
     text-align: right;
     border:0;
     border-bottom: 1px solid;
   }
+  .modal-section {
+    display: inline-block;
+    width:45%;
+  }
+
   .change-button {
     margin-left: 1em;
     margin-top: 1em;
@@ -295,6 +354,7 @@ export default {
     font-weight: bold;
     text-shadow: 0 0 1rem rgba(0,0,0,0.5);
     background: linear-gradient(lightgreen,green);
+    float:right;
   }
 
   .close {
