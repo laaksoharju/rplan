@@ -44,6 +44,10 @@ const Data = require("./dataHandler.js");
 var data = new Data();
 data.initializeData();
 
+
+const DB = require("./DBHandler.js")
+var db=new DB();
+
 io.on('connection', function (socket) {
   // Send list of orders and text labels when a client is ready
   socket.on('pageLoaded', function() {
