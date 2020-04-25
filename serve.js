@@ -48,7 +48,8 @@ io.on('connection', function (socket) {
   // Send list of orders and text labels when a client is ready
   socket.on('pageLoaded', function() {
     socket.emit('initialize', { prognosisPat: data.getPrognosisPat(),
-                                prognosisStaff: data.getPrognosisStaff() });
+                                prognosisStaff: data.getPrognosisStaff(),
+                                prognosisRooms: data.getPrognosisRooms() });
   });
 
 });
