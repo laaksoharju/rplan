@@ -27,6 +27,21 @@ var Step = function (order, resource_group_id, resource_group_name, ack, duratio
   this.resource = [];
 }
 
+async function asyncFunction() {
+  let conn;
+  try {
+	  conn = await pool.getConnection();
+	  const rows = await conn.query("SELECT 1 as val");
+	  console.log(rows); //[ {val: 1}, meta: ... ]
+  } 
+  catch (err) {
+	  throw err;
+  } 
+  finally {
+	  if (conn) return conn.end();
+  }
+}
+
 function getScheduleForResource(resource) {
   var query = 
     'SELECT start_time, duration ' + 
@@ -47,7 +62,7 @@ function getScheduleForResource(resource) {
       date.getMinutes() + ":" +
       date.getSeconds();
     
-    getConnection.query(query, [resource.id, dateString], async function(err, rows) {
+      getConnection.query(query, [resource.id, dateString], async function(err, rows) {
       if (err) reject(err);
       
       await Promise.all(rows.map(function(row) {
