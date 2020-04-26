@@ -1,20 +1,17 @@
 # TODO
 
-[x] Make days selectable
+- [x] Make days selectable
+- [x] Connect to a DB
 
-[ ] Make propagation work
+- [ ] Make propagation work bidirectionally
 
-[ ] Make flexible, zoomable timeline
+- [ ] Make flexible, zoomable timeline
 
-[ ] Connect to a DB
+- [ ] Make scheduling view
+-- [ ] For people, additive
+-- [ ] For other resources, subtractive
 
-[ ] Make scheduling view
-- [ ] For people, additive
-- [ ] For other resources, subtractive
-
-[ ] Add resource reuirements for each row to DB
-
-[ ] Base day capacity on schedules
-
-[ ] Implement actual, historical performance
+- [ ] Add resource requirements for each row to DB
+- [ ] Base day capacity on schedules
+- [ ] Implement actual, historical performance
 - [ ] Recompute future capacity need

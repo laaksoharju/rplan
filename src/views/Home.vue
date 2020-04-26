@@ -25,6 +25,7 @@
     </div>
     <div class="overview">
       <div class="filter-box">
+        <strong>2020</strong>
         <label>
         <input type="checkbox" class="filter" v-model="showStaff">
         <span class="filter-staff"> ✔ </span> Staff
@@ -38,12 +39,12 @@
         <div title="nominal week">
           N
         </div>
-        <div :class="['week', {highlighted: isHighlighted(week)}]" type="text" v-for="week in 52" :key="'n' + week">
+        <div :class="['week', {highlighted: isHighlighted(week)}]" type="text" v-for="week in 52" :key="'n' + week" @mousedown="setStartColumn(week)" @mouseup="setEndCoords()" @mouseover="setSelectedColumn(week)">
           {{ week }}
         </div>
       </div>
       <div class="care capacity" v-for="(item, index) in prognosisStaff" :key="'s' + index">
-        <div class="diagnosis">
+        <div class="diagnosis" @mousedown="setStartRow(index)" @mouseup="setEndCoords" @mouseover="setSelectedRow(index)">
           {{item.diagnosis}}
         </div>
         <div>
@@ -161,6 +162,18 @@ export default {
         this.selecting = false;
         this.changeValueEnabled = true;
       }
+    },
+    setStartRow: function (i) {
+      this.setStartCoords(0, i);
+    },
+    setSelectedRow: function (i) {
+      this.setSelected(51, i);
+    },
+    setStartColumn: function (i) {
+      this.setStartCoords(i, 0);
+    },
+    setSelectedColumn: function (i) {
+      this.setSelected(i, 31);
     },
     isSelected: function (x, y) {
       if (this.startCoords.x === null)
