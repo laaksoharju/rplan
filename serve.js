@@ -5,6 +5,7 @@
 const express = require("express");
 const app = express();
 var http = require('http').Server(app);
+var path = require('path');
 var io = require('socket.io')(http);
 
 if (process.env.NODE_ENV !== 'production') {
@@ -45,7 +46,7 @@ var data = new Data();
 data.initializeData();
 
 
-const DB = require("./DBHandler.js")
+const DB = require("./dbHandler.js")
 var db=new DB();
 
 io.on('connection', function (socket) {
