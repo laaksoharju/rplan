@@ -75,7 +75,7 @@ io.on('connection', function (socket) {
 
 });
 
-const port = 8080;
+const port = process.env.PORT || 8080;
 http.listen(port, function() {
     console.log("Developer server running on http://localhost:" + port);
 });
