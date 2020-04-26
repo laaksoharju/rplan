@@ -13,13 +13,10 @@ DB.prototype.getPrognosisRooms = function () {
     return pr_json;
   }
 
-DB.prototype.setPrognosisRooms = function (data) {
-    // import pr_json from ("./data/" + prognosisRoomsDataName + ".json");
-    // var pr_json=require("./data/" + prognosisRoomsDataName + ".json");
-    // return pr_json;
-
-    //WRITE INTO JSON FILE
-    console.log("setPrognosisRooms", data)
+DB.prototype.setPrognosisRooms = function (newData) {
+    let data = JSON.stringify(newData);
+    fs.writeFileSync("./data/" + prognosisRoomsDataName + ".json", newData);
+    console.log("setPrognosisRooms", newData)
   }
 
 DB.prototype.setPrognosisStaff = function (data) {
