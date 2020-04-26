@@ -46,7 +46,7 @@ var data = new Data();
 data.initializeData();
 
 
-const DB = require("./DBHandler.js")
+const DB = require("./dbHandler.js")
 var db=new DB();
 
 io.on('connection', function (socket) {
