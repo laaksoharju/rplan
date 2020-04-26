@@ -164,16 +164,18 @@ export default {
       }
     },
     setStartRow: function (i) {
-      this.setStartCoords(0, i);
+      this.setStartCoords(1, i);
     },
     setSelectedRow: function (i) {
-      this.setSelected(51, i);
+      //TODO! Remove magic number
+      this.setSelected(52, i);
     },
     setStartColumn: function (i) {
       this.setStartCoords(i, 0);
     },
     setSelectedColumn: function (i) {
-      this.setSelected(i, 31);
+      //TODO! Remove magic number
+      this.setSelected(i, 29);
     },
     isSelected: function (x, y) {
       if (this.startCoords.x === null)
