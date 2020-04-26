@@ -1,6 +1,7 @@
 'use strict';
 
 let csv = require("csvtojson");
+const fs = require('fs');
 
 let prognosisRoomsDataName = "prognosis_rooms";
 

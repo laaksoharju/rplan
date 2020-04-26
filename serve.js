@@ -51,15 +51,13 @@ var db=new DB();
 io.on('connection', function (socket) {
   // Send list of orders and text labels when a client is ready
   socket.on('pageLoaded', function() {
-    console.log("pageLoaded");
     socket.emit('initialize', { prognosisPat: data.getPrognosisPat(),
                                 prognosisStaff: data.getPrognosisStaff(),
                                 outcomeStaff: data.getOutcomeStaff(),
-                                prognosisRooms: db.getPrognosisRooms() });
+                                prognosisRooms: data.getPrognosisRooms() });
   });
 
   socket.on('updateDB', function(d) {
-    console.log("updateDB", d);
     if(typeof d.prognosisPat !== 'undefined') {
       db.setPrognosisPat(d.prognosisPat);
     }
@@ -72,7 +70,7 @@ io.on('connection', function (socket) {
     io.emit('dataUpdated', { prognosisPat: data.getPrognosisPat(),
                              prognosisStaff: data.getPrognosisStaff(),
                              outcomeStaff: data.getOutcomeStaff(),
-                             prognosisRooms: db.getPrognosisRooms() })
+                             prognosisRooms: data.getPrognosisRooms() })
   });
 
 });
