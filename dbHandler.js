@@ -42,7 +42,7 @@ DB.prototype.setPrognosisPat = function (newData) {
 }
 
 
-DB.prototype.getOutecomeStaff = function () {
+DB.prototype.getOutcomeStaff = function () {
   var pr_json=require("./data/" + outcomeStaffDataName + ".json");
   return pr_json;
 }
