@@ -54,6 +54,7 @@ io.on('connection', function (socket) {
     console.log("pageLoaded");
     socket.emit('initialize', { prognosisPat: data.getPrognosisPat(),
                                 prognosisStaff: data.getPrognosisStaff(),
+                                outcomeStaff: data.getOutcomeStaff(),
                                 prognosisRooms: db.getPrognosisRooms() });
   });
 
@@ -70,6 +71,7 @@ io.on('connection', function (socket) {
     }
     io.emit('dataUpdated', { prognosisPat: data.getPrognosisPat(),
                              prognosisStaff: data.getPrognosisStaff(),
+                             outcomeStaff: data.getOutcomeStaff(),
                              prognosisRooms: db.getPrognosisRooms() })
   });
 

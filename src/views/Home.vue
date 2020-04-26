@@ -25,7 +25,11 @@
     </div>
     <div class="overview">
       <div class="filter-box">
-        <strong>2020</strong>
+        <strong>2020 w {{currentWeek}}</strong>
+        <label>
+        <input type="checkbox" class="filter" v-model="showOutcome">
+        <span class="filter-outcome"> ✔ </span> Outcome
+        </label>
         <label>
         <input type="checkbox" class="filter" v-model="showStaff">
         <span class="filter-staff"> ✔ </span> Staff
@@ -52,8 +56,11 @@
         </div>
         <input class="guesswork" type="text" v-model="item.no_visits">
   <!--       <input class="plan" type="text" v-for="week in 52" :key="week" v-model="item['w_' + week]" :title="prognosisPatCalc[index]['w_' + week]"> -->
-        <div v-for="week in 52" :class="['plan-wrapper', {highlighted: isHighlighted(week)}, {selected: isSelected(week, index)}]" :key="week"
+        <div v-for="week in 52" :class="['plan-wrapper', {past: (week < currentWeek)}, {highlighted: isHighlighted(week)}, {selected: isSelected(week, index)}]" :key="week"
         @mousedown="setStartCoords(week, index)" @mouseup="setEndCoords()" @mouseover="setSelected(week, index)">
+          <div v-if="showOutcome && week < currentWeek" class="plan outcome" :style="{height:(outcomeStaff[index]['w_' + week]*100)+'%'}">
+            .
+          </div>
           <div v-if="showStaff" class="plan staff" :style="{height:(item['w_' + week]*100)+'%'}" :title="prognosisPatCalc[index]['w_' + week]">
             .
           </div>
@@ -73,23 +80,13 @@
       <!--stupid hack. fix!-->
       Planned appointment hours per week: {{ sumTime }}
     </div>
-<!--     <p>&nbsp;</p>
-    <div class="care need" v-for="(item, index) in prognosisPatCalc" :key="'p' + index">
-      <div>
-        {{item.diagnosis}}
-      </div>
-      <input type="text" v-model="item.plan_min">
-      <input type="text" v-model="item.sum">
-<!- -       <input type="text" v-model="item.plan_max"> - ->
-      <input type="text" v-for="week in 52" :key="week" v-model="item['w_' + week]">
-      <!- - <input type="text" v-for="week in 52" :key="week" v-model="item['w_' + week]"> - ->
-    </div> 
-  -->
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+
+import {getWeekNumber} from '@/utils/week';
 
 export default {
   name: 'Home',
@@ -97,6 +94,7 @@ export default {
     return {
       prognosisPat: [],
       prognosisStaff: [],
+      outcomeStaff: [],
       prognosisRooms: [],
       startCoords: {x: null, y: null},
       endCoords: {x: 1, y: 1},
@@ -106,8 +104,10 @@ export default {
       setNewValueStaff: false,
       setNewValueRooms: false,
       highlightedWeek: 0,
+      showOutcome: true,
       showStaff: true,
-      showRooms: false
+      showRooms: false,
+      currentWeek: getWeekNumber(new Date())
     }
   },
   computed: {
@@ -133,6 +133,7 @@ export default {
     this.$store.state.socket.on('initialize', function (data) {
       this.prognosisPat = data.prognosisPat;
       this.prognosisStaff = data.prognosisStaff;
+      this.outcomeStaff = data.outcomeStaff;
       this.prognosisRooms = data.prognosisRooms;
     }.bind(this));
     this.$store.state.socket.on('dataUpdated', function (data) {
@@ -164,7 +165,7 @@ export default {
       }
     },
     setStartRow: function (i) {
-      this.setStartCoords(1, i);
+      this.setStartCoords(this.currentWeek, i);
     },
     setSelectedRow: function (i) {
       //TODO! Remove magic number
@@ -180,7 +181,7 @@ export default {
     isSelected: function (x, y) {
       if (this.startCoords.x === null)
         return false;
-      let coordsMin = {x: Math.min(this.startCoords.x, this.endCoords.x), y: Math.min(this.startCoords.y, this.endCoords.y)}
+      let coordsMin = {x: Math.max(this.currentWeek, Math.min(this.startCoords.x, this.endCoords.x)), y: Math.min(this.startCoords.y, this.endCoords.y)}
       let coordsMax = {x: Math.max(this.startCoords.x, this.endCoords.x), y: Math.max(this.startCoords.y, this.endCoords.y)}
       if (x >= coordsMin.x && x <= coordsMax.x &&
           y >= coordsMin.y && y <= coordsMax.y)
@@ -217,7 +218,7 @@ export default {
   .filter {
     display: none;
   }
-  .filter-staff, .filter-rooms {
+  .filter-staff, .filter-rooms, .filter-outcome {
     border-radius: 3px;
     color:transparent;
     user-select: none;   
@@ -234,8 +235,13 @@ export default {
     background:maroon;
   }
 
+  input[type="checkbox"] + .filter-outcome {
+    background:black;
+  }
+
   input[type="checkbox"]:checked + .filter-staff, 
-  input[type="checkbox"]:checked + .filter-rooms {
+  input[type="checkbox"]:checked + .filter-rooms,
+  input[type="checkbox"]:checked + .filter-outcome {
     color:white;
     user-select: none;
   }
@@ -272,6 +278,9 @@ export default {
   .room {
     background-color: maroon;
   }
+  .outcome {
+    background-color: black;
+  }  
 
   input[type='text'] {
     padding-right: 0.4em;
@@ -321,7 +330,9 @@ export default {
   .overview {
     margin:1em;
   }
-
+  .past {
+    background-color: antiquewhite;
+  }
   .care:hover, .highlighted {
     background-color: rgba(255,0,0,0.1);
   }

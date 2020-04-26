@@ -4,6 +4,7 @@ let csv = require("csvtojson");
 
 let prognosisPatDataName = "prognosis_pat";
 let prognosisStaffDataName = "prognosis_staff";
+let outcomeStaffDataName = "outcome_staff";
 let prognosisRoomsDataName = "prognosis_rooms";
 let defaultLanguage = "en";
 
@@ -27,6 +28,11 @@ Data.prototype.getPrognosisStaff = function () {
   return d[prognosisStaffDataName]
 }
 
+Data.prototype.getOutcomeStaff = function () {
+  var d = this.data;
+  return d[outcomeStaffDataName]
+}
+
 Data.prototype.getPrognosisRooms = function () {
   var d = this.data;
   return d[prognosisRoomsDataName]
@@ -48,6 +54,7 @@ Data.prototype.initializeData = function() {
   console.log("Starting to build data tables");
   this.initializeTable(prognosisPatDataName);
   this.initializeTable(prognosisStaffDataName);
+  this.initializeTable(outcomeStaffDataName);
   this.initializeTable(prognosisRoomsDataName);
 }
 
