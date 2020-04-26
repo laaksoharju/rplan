@@ -8,77 +8,94 @@
         <p>Add new values for selected days.</p>
         <div class="modal-section">
           <label>
-            <input type="checkbox" v-model="setNewValueStaff"> Staff
+            <input type="checkbox" v-model="setNewValueStaff"> Planned capacity
           </label>
-          <input type="number" min="0" max="100" @input="setNewValueStaff = true" v-model="newValueStaff"> %
+          <input type="number" min="0" max="100" @input="setNewValueStaff = true" v-model="newValueStaff" @change="changeSelectedValues"> %
         </div>
-        <div class="modal-section">
+<!--         <div class="modal-section">
           <label>
             <input type="checkbox" v-model="setNewValueRooms"> Rooms
           </label>
           <input type="number" min="0" max="100" @input="setNewValueRooms = true" v-model="newValueRooms"> %
-        </div>
+        </div> -->
         <button class="change-button" @click="changeSelectedValues"> 
           Change selected
         </button> 
       </div>
     </div>
     <div class="overview">
-      <div class="filter-box">
-        <strong>2020 w {{currentWeek}}</strong>
-        <label>
-        <input type="checkbox" class="filter" v-model="showOutcome">
-        <span class="filter-outcome"> ✔ </span> Outcome
-        </label>
-        <label>
-        <input type="checkbox" class="filter" v-model="showStaff">
-        <span class="filter-staff"> ✔ </span> Staff
-        </label>
-        <label>
-        <input type="checkbox" class="filter" v-model="showRooms">
-        <span class="filter-rooms"> ✔ </span> Rooms
-        </label>
-      </div>
+      <strong>2020 w {{currentWeek}}</strong>
       <div class="year care">
-        <div title="nominal week">
+        <div class="heading">
+          Visit type
+        </div>
+        <div class="heading week">
+          min
+        </div>
+        <div class="heading week">
           N
         </div>
-        <div :class="['week', {highlighted: isHighlighted(week)}]" type="text" v-for="week in 52" :key="'n' + week" @mousedown="setStartColumn(week)" @mouseup="setEndCoords()" @mouseover="setSelectedColumn(week)">
+        <div :class="['heading week', {past: (week < currentWeek)}, {highlighted: isHighlighted(week)}]" type="text" v-for="week in 52" :key="'n' + week" @mousedown="setStartColumn(week)" @mouseup="setEndCoords()" @mouseover="setSelectedColumn(week)">
           {{ week }}
+        </div>
+        <div class="week prev-year">
+          2019
         </div>
       </div>
       <div class="care capacity" v-for="(item, index) in prognosisStaff" :key="'s' + index">
         <div class="diagnosis" @mousedown="setStartRow(index)" @mouseup="setEndCoords" @mouseover="setSelectedRow(index)">
           {{item.diagnosis}}
         </div>
-        <div>
+        <input class="guesswork" type="text" v-model="prognosisPat[index].tid">
+        <!-- <div class="diagnosis time">
           {{prognosisPat[index].tid}}
-        </div>
+        </div> -->
         <input class="guesswork" type="text" v-model="item.no_visits">
   <!--       <input class="plan" type="text" v-for="week in 52" :key="week" v-model="item['w_' + week]" :title="prognosisPatCalc[index]['w_' + week]"> -->
         <div v-for="week in 52" :class="['plan-wrapper', {past: (week < currentWeek)}, {highlighted: isHighlighted(week)}, {selected: isSelected(week, index)}]" :key="week"
         @mousedown="setStartCoords(week, index)" @mouseup="setEndCoords()" @mouseover="setSelected(week, index)">
-          <div v-if="showOutcome && week < currentWeek" class="plan outcome" :style="{height:(outcomeStaff[index]['w_' + week]*100)+'%'}">
+          <div v-if="showOutcome && week < currentWeek" class="plan outcome" :style="{height:(outcomeStaff[index]['w_' + week] / item.no_visits * 100 )+'%'}" :title="outcomeStaff[index]['w_' + week]">
             .
           </div>
-          <div v-if="showStaff" class="plan staff" :style="{height:(item['w_' + week]*100)+'%'}" :title="prognosisPatCalc[index]['w_' + week]">
+          <div v-if="showStaff && week >= currentWeek" class="plan staff" :style="{height:(item['w_' + week]*100)+'%'}" :title="prognosisPatCalc[index]['w_' + week]">
             .
           </div>
-          <div v-if="showRooms" class="plan room" :style="{height:(prognosisRooms[index]['w_' + week]*100)+'%'}">
+<!--           <div v-if="showRooms" class="plan room" :style="{height:(prognosisRooms[index]['w_' + week]*100)+'%'}">
             .
-          </div>
+          </div> -->
         </div>
         <div @mouseover="setEndCoords()" class="prev-year">
           <!--@mouseover here is a stupid hack. fix!-->
           {{prognosisPatCalc[index].plan_min}}
         </div>
         <!--@mouseover here is a stupid hack. fix!-->
-        <input @mouseover="setEndCoords()" :class="['sum-diagnosis', {'ok': prognosisPatCalc[index].sum > prognosisPatCalc[index].plan_min }, {'warning':prognosisPatCalc[index].sum <= prognosisPatCalc[index].plan_min}]" type="text" :value="Math.round(prognosisPatCalc[index].sum)">
+  <!--       <div @mouseover="setEndCoords()" :class="['sum-diagnosis', {'ok': outcomePatCalc[index] > prognosisPatCalc[index].plan_min }, {'warning':outcomePatCalc[index] <= prognosisPatCalc[index].plan_min}]">
+          {{ Math.round(outcomePatCalc[index]) }}
+        </div> -->
+        <div @mouseover="setEndCoords()" :class="['sum-diagnosis', {'ok': outcomePatCalc[index] > prognosisPatCalc[index].plan_min }, {'warning':outcomePatCalc[index] <= prognosisPatCalc[index].plan_min}]">
+          {{ Math.round(outcomePatCalc[index] - prognosisPatCalc[index].plan_min) }}
+        </div>
       </div>
     </div>
     <div @mouseover="setEndCoords()">
       <!--stupid hack. fix!-->
-      Planned appointment hours per week: {{ sumTime }}
+      <div class="filter-box">
+        <span>
+          Nominal planned hours/week: <strong>{{ sumTime }}</strong>
+        </span>
+        <label>
+        <input type="checkbox" class="filter" v-model="showOutcome">
+        <span class="filter-outcome"> ✔ </span> Outcome
+        </label>
+        <label>
+        <input type="checkbox" class="filter" v-model="showStaff">
+        <span class="filter-staff"> ✔ </span> Planned capacity
+        </label>
+<!--         <label>
+        <input type="checkbox" class="filter" v-model="showRooms">
+        <span class="filter-rooms"> ✔ </span> Rooms
+        </label> -->
+      </div>
     </div>
   </div>
 </template>
@@ -111,6 +128,20 @@ export default {
     }
   },
   computed: {
+    outcomePatCalc: function () {
+      let arr = [];
+      for (let j = 0; j < this.prognosisPat.length; j += 1) {
+        let sum = 0;
+        for (let i = 1; i<this.currentWeek; i ++) {
+          sum += this.outcomeStaff[j]["w_" + i]
+        }
+        for (let i = this.currentWeek; i<=52; i ++) {
+          sum += this.prognosisStaff[j]["w_" + i] * this.prognosisStaff[j].no_visits
+        }
+        arr[j] =sum;
+      }
+      return arr;
+    },
     prognosisPatCalc: function () {
       return this.prognosisPat.map(function(d, j) {
         d.sum = 0;
@@ -130,11 +161,11 @@ export default {
   },
   created: function () {
     this.$store.state.socket.emit('pageLoaded');
-    this.$store.state.socket.on('initialize', function (data) {
-      this.prognosisPat = data.prognosisPat;
-      this.prognosisStaff = data.prognosisStaff;
-      this.outcomeStaff = data.outcomeStaff;
-      this.prognosisRooms = data.prognosisRooms;
+    this.$store.state.socket.on('initialize', function (initData) {
+      this.prognosisPat = initData.prognosisPat;
+      this.prognosisStaff = initData.prognosisStaff;
+      this.outcomeStaff = initData.outcomeStaff;
+      this.prognosisRooms = initData.prognosisRooms;
     }.bind(this));
     this.$store.state.socket.on('dataUpdated', function (updatedData) {
       console.log("dataUpdated", updatedData);
@@ -213,7 +244,7 @@ export default {
 </script>
 <style scoped>
   .filter-box {
-    margin-left: 16em;
+    margin-left: 1em;
   }
   .filter {
     display: none;
@@ -242,7 +273,8 @@ export default {
   input[type="checkbox"]:checked + .filter-staff, 
   input[type="checkbox"]:checked + .filter-rooms,
   input[type="checkbox"]:checked + .filter-outcome {
-    color:white;
+    /*color:white;*/
+    color: transparent;
     user-select: none;
   }
 
@@ -289,13 +321,21 @@ export default {
     border-bottom: 1px solid black;
   }
   .sum-diagnosis {
-  
-  }
-  .diagnosis {
+    text-align: right;
     padding:0.2em;
   }
+
+  .diagnosis {
+    padding:0.2em;
+    display: flex;
+    align-items: flex-end;
+  }
+  .time {
+    font-size: 0.8em;
+  }
   .guesswork {
-    background-color: peachpuff;
+    background-color: transparent;
+    margin: 0.2em;
   }
 
   .ok {
@@ -308,19 +348,30 @@ export default {
   }
   .prev-year {
     text-align: right;
-    padding: 0.1em;
+    padding: 0.2em;
     padding-right:0.4em;
+    background-color: antiquewhite;
+  }
+  .heading {
+    font-weight: bold;
+    font-size: 0.8em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: 0.1em;
   }
   .week {
+    font-weight: bold;
+    font-size: 0.8em;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 0.1em;
   }
+
   .year {
     display: grid;
-    grid-template-columns: 2.5em repeat(52, calc(1.5em));
-    margin-left:14em;
+    grid-template-columns: 11.5em 2.5em 2.5em repeat(52, calc(1.5em)) 2.5em;
 
   }
   .diagnosis {
