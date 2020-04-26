@@ -46,11 +46,11 @@
         <div class="diagnosis" @mousedown="setStartRow(index)" @mouseup="setEndCoords" @mouseover="setSelectedRow(index)">
           {{item.diagnosis}}
         </div>
-        <input class="guesswork" type="text" v-model="prognosisPat[index].tid">
+        <input class="guesswork" type="text" v-model="prognosisPat[index].tid" @change="sendUpdate">
         <!-- <div class="diagnosis time">
           {{prognosisPat[index].tid}}
         </div> -->
-        <input class="guesswork" type="text" v-model="item.no_visits">
+        <input class="guesswork" type="text" v-model="item.no_visits" @change="sendUpdate">
   <!--       <input class="plan" type="text" v-for="week in 52" :key="week" v-model="item['w_' + week]" :title="prognosisPatCalc[index]['w_' + week]"> -->
         <div v-for="week in 52" :class="['plan-wrapper', {past: (week < currentWeek)}, {highlighted: isHighlighted(week)}, {selected: isSelected(week, index)}]" :key="week"
         @mousedown="setStartCoords(week, index)" @mouseup="setEndCoords()" @mouseover="setSelected(week, index)">
@@ -174,6 +174,10 @@ export default {
     }.bind(this));
   },
   methods: {
+    sendUpdate: function () {
+      this.$store.state.socket.emit('updateDB', { prognosisStaff: this.prognosisStaff,
+                                                  prognosisPat: this.prognosisPat });
+    },
     isHighlighted: function (x) {
       return x === this.highlightedWeek;
     },
