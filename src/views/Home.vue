@@ -54,7 +54,7 @@
   <!--       <input class="plan" type="text" v-for="week in 52" :key="week" v-model="item['w_' + week]" :title="prognosisPatCalc[index]['w_' + week]"> -->
         <div v-for="week in 52" :class="['plan-wrapper', {past: (week < currentWeek)}, {highlighted: isHighlighted(week)}, {selected: isSelected(week, index)}]" :key="week"
         @mousedown="setStartCoords(week, index)" @mouseup="setEndCoords()" @mouseover="setSelected(week, index)">
-          <div v-if="showOutcome && week < currentWeek" class="plan outcome" :style="{height:(outcomeStaff[index]['w_' + week] / item.no_visits * 100 )+'%'}" :title="outcomeStaff[index]['w_' + week]">
+          <div v-if="showOutcome && week < currentWeek" class="plan outcome" :style="{height:(Math.min(100, outcomeStaff[index]['w_' + week] / item.no_visits * 100 ))+'%'}" :title="outcomeStaff[index]['w_' + week]">
             .
           </div>
           <div v-if="showStaff && week >= currentWeek" class="plan staff" :style="{height:(item['w_' + week]*100)+'%'}" :title="prognosisPatCalc[index]['w_' + week]">
