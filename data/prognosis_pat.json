@@ -24,7 +24,7 @@
       "id": "4",
       "diagnosis": "'Bröst - återbesök'",
       "plan_max": 1092,
-      "plan_min": 810,
+      "plan_min": 774,
       "tid": 30
     },
     {
@@ -38,14 +38,14 @@
       "id": "6",
       "diagnosis": "'CNS - återbesök'",
       "plan_max": 364,
-      "plan_min": 217,
+      "plan_min": 205,
       "tid": 30
     },
     {
       "id": "7",
       "diagnosis": "'Ej onkologen  - nybesök'",
       "plan_max": 156,
-      "plan_min": 83,
+      "plan_min": 60,
       "tid": 60
     },
     {
@@ -59,7 +59,7 @@
       "id": "9",
       "diagnosis": "'Esofagus  - nybesök'",
       "plan_max": 52,
-      "plan_min": 23,
+      "plan_min": 15,
       "tid": 60
     },
     {
@@ -143,14 +143,14 @@
       "id": "21",
       "diagnosis": "'NGI - nybesök'",
       "plan_max": 156,
-      "plan_min": 162,
+      "plan_min": 107,
       "tid": 60
     },
     {
       "id": "22",
       "diagnosis": "'NGI - återbesök'",
       "plan_max": 884,
-      "plan_min": 594,
+      "plan_min": 444,
       "tid": 30
     },
     {
@@ -164,14 +164,14 @@
       "id": "24",
       "diagnosis": "'Prostata/Njure - återbesök'",
       "plan_max": 884,
-      "plan_min": 446,
+      "plan_min": 428,
       "tid": 30
     },
     {
       "id": "25'Sarkom - nybesök'",
       "diagnosis": "364",
-      "plan_max": 12,
-      "plan_min": 60,
+      "plan_max": 16,
+      "plan_min": 12,
       "tid": null
     },
     {
@@ -199,14 +199,14 @@
       "id": "29",
       "diagnosis": "'ÖGI - nybesök'",
       "plan_max": 52,
-      "plan_min": 86,
+      "plan_min": 80,
       "tid": 60
     },
     {
       "id": "30",
       "diagnosis": "'ÖGI - återbesök'",
       "plan_max": 156,
-      "plan_min": 387,
+      "plan_min": 317,
       "tid": 30
     }
    ]
