@@ -52,10 +52,10 @@ var db=new DB();
 io.on('connection', function (socket) {
   // Send list of orders and text labels when a client is ready
   socket.on('pageLoaded', function() {
-    socket.emit('initialize', { prognosisPat: data.getPrognosisPat(),
-                                prognosisStaff: data.getPrognosisStaff(),
-                                outcomeStaff: data.getOutcomeStaff(),
-                                prognosisRooms: data.getPrognosisRooms() });
+    socket.emit('initialize', { prognosisPat: db.getPrognosisPat(),
+                                prognosisStaff: db.getPrognosisStaff(),
+                                outcomeStaff: db.getOutcomeStaff(),
+                                prognosisRooms: db.getPrognosisRooms() });
   });
 
   socket.on('updateDB', function(d) {
@@ -68,10 +68,10 @@ io.on('connection', function (socket) {
     if(typeof d.prognosisRooms !== 'undefined') {
       db.setPrognosisRooms(d.prognosisRooms)  
     }
-    io.emit('dataUpdated', { prognosisPat: data.getPrognosisPat(),
-                             prognosisStaff: data.getPrognosisStaff(),
-                             outcomeStaff: data.getOutcomeStaff(),
-                             prognosisRooms: data.getPrognosisRooms() })
+    io.emit('dataUpdated', { prognosisPat: db.getPrognosisPat(),
+                             prognosisStaff: db.getPrognosisStaff(),
+                             outcomeStaff: db.getOutcomeStaff(),
+                             prognosisRooms: db.getPrognosisRooms() })
   });
 
 });

@@ -1,0 +1,212 @@
+[
+    {
+      "id": "1",
+      "diagnosis": "'Blåsa/Testis - nybesök'",
+      "plan_max": 104,
+      "plan_min": 34,
+      "tid": 60
+    },
+    {
+      "id": "2",
+      "diagnosis": "'Blåsa/Testis - återbesök'",
+      "plan_max": 208,
+      "plan_min": 117,
+      "tid": 30
+    },
+    {
+      "id": "3",
+      "diagnosis": "'Bröst  - nybesök'",
+      "plan_max": 416,
+      "plan_min": 268,
+      "tid": 60
+    },
+    {
+      "id": "4",
+      "diagnosis": "'Bröst - återbesök'",
+      "plan_max": 1092,
+      "plan_min": 810,
+      "tid": 30
+    },
+    {
+      "id": "5",
+      "diagnosis": "'CNS - nybesök'",
+      "plan_max": 104,
+      "plan_min": 23,
+      "tid": 60
+    },
+    {
+      "id": "6",
+      "diagnosis": "'CNS - återbesök'",
+      "plan_max": 364,
+      "plan_min": 217,
+      "tid": 30
+    },
+    {
+      "id": "7",
+      "diagnosis": "'Ej onkologen  - nybesök'",
+      "plan_max": 156,
+      "plan_min": 83,
+      "tid": 60
+    },
+    {
+      "id": "8",
+      "diagnosis": "'Ej onkologen - återbesök'",
+      "plan_max": 1768,
+      "plan_min": 1026,
+      "tid": 30
+    },
+    {
+      "id": "9",
+      "diagnosis": "'Esofagus  - nybesök'",
+      "plan_max": 52,
+      "plan_min": 23,
+      "tid": 60
+    },
+    {
+      "id": "10",
+      "diagnosis": "'Esofagus - återbesök'",
+      "plan_max": 156,
+      "plan_min": 96,
+      "tid": 30
+    },
+    {
+      "id": "11",
+      "diagnosis": "'HeadNeck  - nybesök'",
+      "plan_max": 156,
+      "plan_min": 54,
+      "tid": 60
+    },
+    {
+      "id": "12",
+      "diagnosis": "'HeadNeck - återbesök'",
+      "plan_max": 260,
+      "plan_min": 170,
+      "tid": 30
+    },
+    {
+      "id": "13",
+      "diagnosis": "'Hud  - nybesök'",
+      "plan_max": 156,
+      "plan_min": 67,
+      "tid": 60
+    },
+    {
+      "id": "14",
+      "diagnosis": "'Hud - återbesök'",
+      "plan_max": 416,
+      "plan_min": 253,
+      "tid": 30
+    },
+    {
+      "id": "15",
+      "diagnosis": "'Lokal UNS  - nybesök'",
+      "plan_max": 104,
+      "plan_min": 52,
+      "tid": 60
+    },
+    {
+      "id": "16",
+      "diagnosis": "'Lokal UNS - återbesök'",
+      "plan_max": 468,
+      "plan_min": 219,
+      "tid": 30
+    },
+    {
+      "id": "17",
+      "diagnosis": "'Lunga - nybesök'",
+      "plan_max": 260,
+      "plan_min": 86,
+      "tid": 60
+    },
+    {
+      "id": "18",
+      "diagnosis": "'Lunga - återbesök'",
+      "plan_max": 780,
+      "plan_min": 575,
+      "tid": 30
+    },
+    {
+      "id": "19",
+      "diagnosis": "'Lymfom - nybesök'",
+      "plan_max": 156,
+      "plan_min": 56,
+      "tid": 60
+    },
+    {
+      "id": "20",
+      "diagnosis": "'Lymfom - återbesök'",
+      "plan_max": 364,
+      "plan_min": 604,
+      "tid": 30
+    },
+    {
+      "id": "21",
+      "diagnosis": "'NGI - nybesök'",
+      "plan_max": 156,
+      "plan_min": 162,
+      "tid": 60
+    },
+    {
+      "id": "22",
+      "diagnosis": "'NGI - återbesök'",
+      "plan_max": 884,
+      "plan_min": 594,
+      "tid": 30
+    },
+    {
+      "id": "23",
+      "diagnosis": "'Prostata/Njure - nybesök'",
+      "plan_max": 260,
+      "plan_min": 213,
+      "tid": 60
+    },
+    {
+      "id": "24",
+      "diagnosis": "'Prostata/Njure - återbesök'",
+      "plan_max": 884,
+      "plan_min": 446,
+      "tid": 30
+    },
+    {
+      "id": "25'Sarkom - nybesök'",
+      "diagnosis": "364",
+      "plan_max": 12,
+      "plan_min": 60,
+      "tid": null
+    },
+    {
+      "id": "26",
+      "diagnosis": "'Sarkom - återbesök'",
+      "plan_max": 624,
+      "plan_min": 97,
+      "tid": 30
+    },
+    {
+      "id": "27",
+      "diagnosis": "'Thyroidea - nybesök'",
+      "plan_max": 52,
+      "plan_min": 16,
+      "tid": 60
+    },
+    {
+      "id": "28",
+      "diagnosis": "'Thyroidea - återbesök'",
+      "plan_max": 208,
+      "plan_min": 88,
+      "tid": 30
+    },
+    {
+      "id": "29",
+      "diagnosis": "'ÖGI - nybesök'",
+      "plan_max": 52,
+      "plan_min": 86,
+      "tid": 60
+    },
+    {
+      "id": "30",
+      "diagnosis": "'ÖGI - återbesök'",
+      "plan_max": 156,
+      "plan_min": 387,
+      "tid": 30
+    }
+   ]

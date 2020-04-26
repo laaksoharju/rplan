@@ -161,18 +161,18 @@ export default {
   },
   created: function () {
     this.$store.state.socket.emit('pageLoaded');
-    this.$store.state.socket.on('initialize', function (data) {
-      this.prognosisPat = data.prognosisPat;
-      this.prognosisStaff = data.prognosisStaff;
-      this.outcomeStaff = data.outcomeStaff;
-      this.prognosisRooms = data.prognosisRooms;
+    this.$store.state.socket.on('initialize', function (initData) {
+      this.prognosisPat = initData.prognosisPat;
+      this.prognosisStaff = initData.prognosisStaff;
+      this.outcomeStaff = initData.outcomeStaff;
+      this.prognosisRooms = initData.prognosisRooms;
     }.bind(this));
-    // this.$store.state.socket.on('dataUpdated', function (data) {
-    //   console.log("dataUpdated", data);
-    //   this.prognosisPat = data.prognosisPat;
-    //   this.prognosisStaff = data.prognosisStaff;
-    //   this.prognosisRooms = data.prognosisRooms;
-    // }.bind(this));
+    this.$store.state.socket.on('dataUpdated', function (updatedData) {
+      console.log("dataUpdated", updatedData);
+      this.prognosisPat = updatedData.prognosisPat;
+      this.prognosisStaff = updatedData.prognosisStaff;
+      this.prognosisRooms = updatedData.prognosisRooms;
+    }.bind(this));
   },
   methods: {
     isHighlighted: function (x) {
