@@ -26,10 +26,16 @@
     <div class="overview">
       <strong>2020 w {{currentWeek}}</strong>
       <div class="year care">
-        <div title="nominal week">
+        <div class="heading">
+          Visit type
+        </div>
+        <div class="heading week">
+          min
+        </div>
+        <div class="heading week">
           N
         </div>
-        <div :class="['week', {past: (week < currentWeek)}, {highlighted: isHighlighted(week)}]" type="text" v-for="week in 52" :key="'n' + week" @mousedown="setStartColumn(week)" @mouseup="setEndCoords()" @mouseover="setSelectedColumn(week)">
+        <div :class="['heading week', {past: (week < currentWeek)}, {highlighted: isHighlighted(week)}]" type="text" v-for="week in 52" :key="'n' + week" @mousedown="setStartColumn(week)" @mouseup="setEndCoords()" @mouseover="setSelectedColumn(week)">
           {{ week }}
         </div>
         <div class="week prev-year">
@@ -40,9 +46,10 @@
         <div class="diagnosis" @mousedown="setStartRow(index)" @mouseup="setEndCoords" @mouseover="setSelectedRow(index)">
           {{item.diagnosis}}
         </div>
-        <div>
+        <input class="guesswork" type="text" v-model="prognosisPat[index].tid">
+        <!-- <div class="diagnosis time">
           {{prognosisPat[index].tid}}
-        </div>
+        </div> -->
         <input class="guesswork" type="text" v-model="item.no_visits">
   <!--       <input class="plan" type="text" v-for="week in 52" :key="week" v-model="item['w_' + week]" :title="prognosisPatCalc[index]['w_' + week]"> -->
         <div v-for="week in 52" :class="['plan-wrapper', {past: (week < currentWeek)}, {highlighted: isHighlighted(week)}, {selected: isSelected(week, index)}]" :key="week"
@@ -74,7 +81,7 @@
       <!--stupid hack. fix!-->
       <div class="filter-box">
         <span>
-          Planned weekly appointment hours: <strong>{{ sumTime }}</strong>
+          Nominal planned hours/week: <strong>{{ sumTime }}</strong>
         </span>
         <label>
         <input type="checkbox" class="filter" v-model="showOutcome">
@@ -266,7 +273,8 @@ export default {
   input[type="checkbox"]:checked + .filter-staff, 
   input[type="checkbox"]:checked + .filter-rooms,
   input[type="checkbox"]:checked + .filter-outcome {
-    color:white;
+    /*color:white;*/
+    color: transparent;
     user-select: none;
   }
 
@@ -319,6 +327,11 @@ export default {
 
   .diagnosis {
     padding:0.2em;
+    display: flex;
+    align-items: flex-end;
+  }
+  .time {
+    font-size: 0.8em;
   }
   .guesswork {
     background-color: transparent;
@@ -335,9 +348,17 @@ export default {
   }
   .prev-year {
     text-align: right;
-    padding: 0.1em;
+    padding: 0.2em;
     padding-right:0.4em;
     background-color: antiquewhite;
+  }
+  .heading {
+    font-weight: bold;
+    font-size: 0.8em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: 0.1em;
   }
   .week {
     font-weight: bold;
@@ -347,10 +368,10 @@ export default {
     justify-content: center;
     margin-right: 0.1em;
   }
+
   .year {
     display: grid;
-    grid-template-columns: 2.5em repeat(52, calc(1.5em)) 2.5em;
-    margin-left:14em;
+    grid-template-columns: 11.5em 2.5em 2.5em repeat(52, calc(1.5em)) 2.5em;
 
   }
   .diagnosis {
