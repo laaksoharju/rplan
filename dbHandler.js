@@ -13,6 +13,32 @@ DB.prototype.getPrognosisRooms = function () {
     return pr_json;
   }
 
+DB.prototype.setPrognosisRooms = function (data) {
+    // import pr_json from ("./data/" + prognosisRoomsDataName + ".json");
+    // var pr_json=require("./data/" + prognosisRoomsDataName + ".json");
+    // return pr_json;
+
+    //WRITE INTO JSON FILE
+    console.log("setPrognosisRooms", data)
+  }
+
+DB.prototype.setPrognosisStaff = function (data) {
+    // import pr_json from ("./data/" + prognosisRoomsDataName + ".json");
+    // var pr_json=require("./data/" + prognosisRoomsDataName + ".json");
+    // return pr_json;
+
+    //WRITE INTO JSON FILE
+    console.log("setPrognosisStaff", data)
+  }
+
+DB.prototype.setPrognosisPat = function (data) {
+    // import pr_json from ("./data/" + prognosisRoomsDataName + ".json");
+    // var pr_json=require("./data/" + prognosisRoomsDataName + ".json");
+    // return pr_json;
+
+    //WRITE INTO JSON FILE
+    console.log("setPrognosisPat", data)
+  }
 
 // Store data in an object to keep the global namespace clean
 function DB() {

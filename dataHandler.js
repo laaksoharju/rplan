@@ -39,7 +39,7 @@ Data.prototype.initializeTable = function (table) {
   csv({checkType: true, quote:"'"})
     .fromFile("./data/" + table + ".csv")
     .then((jsonObj) => {
-      //console.log("JSON object", jsonObj, "done");
+      console.log("JSON object", jsonObj, "done");
       this.data[table] = jsonObj;
     });
 };

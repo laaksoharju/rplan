@@ -51,9 +51,26 @@ var db=new DB();
 io.on('connection', function (socket) {
   // Send list of orders and text labels when a client is ready
   socket.on('pageLoaded', function() {
+    console.log("pageLoaded");
     socket.emit('initialize', { prognosisPat: data.getPrognosisPat(),
                                 prognosisStaff: data.getPrognosisStaff(),
-                                prognosisRooms: data.getPrognosisRooms() });
+                                prognosisRooms: db.getPrognosisRooms() });
+  });
+
+  socket.on('updateDB', function(d) {
+    console.log("updateDB", d);
+    if(typeof d.prognosisPat !== 'undefined') {
+      db.setPrognosisPat(d.prognosisPat);
+    }
+    if(typeof d.prognosisStaff !== 'undefined') {
+      db.setPrognosisStaff(d.prognosisStaff)  
+    }
+    if(typeof d.prognosisRooms !== 'undefined') {
+      db.setPrognosisRooms(d.prognosisRooms)  
+    }
+    io.emit('dataUpdated', { prognosisPat: data.getPrognosisPat(),
+                             prognosisStaff: data.getPrognosisStaff(),
+                             prognosisRooms: db.getPrognosisRooms() })
   });
 
 });

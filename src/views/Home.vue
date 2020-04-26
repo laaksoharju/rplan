@@ -134,6 +134,12 @@ export default {
       this.prognosisStaff = data.prognosisStaff;
       this.prognosisRooms = data.prognosisRooms;
     }.bind(this));
+    this.$store.state.socket.on('dataUpdated', function (data) {
+      console.log("dataUpdated", data);
+      this.prognosisPat = data.prognosisPat;
+      this.prognosisStaff = data.prognosisStaff;
+      this.prognosisRooms = data.prognosisRooms;
+    }.bind(this));
   },
   methods: {
     isHighlighted: function (x) {
@@ -176,6 +182,8 @@ export default {
           if (this.setNewValueRooms)
             this.prognosisRooms[index]['w_'+ week] = this.newValueRooms/100;
         }
+      this.$store.state.socket.emit('updateDB', { prognosisStaff: this.prognosisStaff,
+                                                  prognosisRooms: this.prognosisRooms });
       this.startCoords.x = null;
       this.changeValueEnabled = false;
 
