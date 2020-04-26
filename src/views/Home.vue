@@ -168,7 +168,6 @@ export default {
       this.prognosisRooms = initData.prognosisRooms;
     }.bind(this));
     this.$store.state.socket.on('dataUpdated', function (updatedData) {
-      console.log("dataUpdated", updatedData);
       this.prognosisPat = updatedData.prognosisPat;
       this.prognosisStaff = updatedData.prognosisStaff;
       this.prognosisRooms = updatedData.prognosisRooms;
