@@ -5,6 +5,7 @@
 const express = require("express");
 const app = express();
 var http = require('http').Server(app);
+var path = require('path');
 var io = require('socket.io')(http);
 
 if (process.env.NODE_ENV !== 'production') {
