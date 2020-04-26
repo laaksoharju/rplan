@@ -41,6 +41,13 @@ Data.prototype.getPrognosisRooms = function () {
 /*
   Function to load initial data from CSV files into the object
 */
+Data.prototype.initializeJSONTable = function (table) {
+      this.data[table] = require("./data/" + table + ".json");
+};
+
+/*
+  Function to load initial data from json files into the object
+*/
 Data.prototype.initializeTable = function (table) {
   csv({checkType: true, quote:"'"})
     .fromFile("./data/" + table + ".csv")
@@ -55,7 +62,7 @@ Data.prototype.initializeData = function() {
   this.initializeTable(prognosisPatDataName);
   this.initializeTable(prognosisStaffDataName);
   this.initializeTable(outcomeStaffDataName);
-  this.initializeTable(prognosisRoomsDataName);
+  this.initializeJSONTable(prognosisRoomsDataName);
 }
 
 module.exports = Data;

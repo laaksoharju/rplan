@@ -1,6 +1,7 @@
 'use strict';
 
 let csv = require("csvtojson");
+const fs = require('fs');
 
 let prognosisRoomsDataName = "prognosis_rooms";
 
@@ -14,9 +15,8 @@ DB.prototype.getPrognosisRooms = function () {
   }
 
 DB.prototype.setPrognosisRooms = function (newData) {
-    let data = JSON.stringify(newData);
-    fs.writeFileSync("./data/" + prognosisRoomsDataName + ".json", newData);
-    console.log("setPrognosisRooms", newData)
+    fs.writeFileSync("./data/" + prognosisRoomsDataName + ".json", JSON.stringify(newData), null, 2);
+    console.log("setPrognosisRooms", JSON.stringify(newData))
   }
 
 DB.prototype.setPrognosisStaff = function (data) {
