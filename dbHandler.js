@@ -12,8 +12,7 @@ let prognosisRoomsDataName = "prognosis_rooms";
 let defaultLanguage = "en";
 
 DB.prototype.getPrognosisRooms = function () {
-    var pr_json=require("./data/" + prognosisRoomsDataName + ".json");
-    return pr_json;
+    return JSON.parse(fs.readFileSync("./data/" + prognosisRoomsDataName + ".json"));
 }
 
 DB.prototype.setPrognosisRooms = function (newData) {
@@ -22,8 +21,7 @@ DB.prototype.setPrognosisRooms = function (newData) {
 }
 
 DB.prototype.getPrognosisStaff = function () {
-  var pr_json=require("./data/" + prognosisStaffDataName + ".json");
-  return pr_json;
+  return JSON.parse(fs.readFileSync("./data/" + prognosisStaffDataName + ".json"));
 }
 
 DB.prototype.setPrognosisStaff = function (newData) {
@@ -32,8 +30,9 @@ DB.prototype.setPrognosisStaff = function (newData) {
 }
 
 DB.prototype.getPrognosisPat = function () {
-  var pr_json=require("./data/" + prognosisPatDataName + ".json");
-  return pr_json;
+  return JSON.parse(fs.readFileSync("./data/" + prognosisPatDataName + ".json"));
+  //var pr_json=require("./data/" + prognosisPatDataName + ".json");
+  //return pr_json;
 }
 
 DB.prototype.setPrognosisPat = function (newData) {
@@ -43,8 +42,7 @@ DB.prototype.setPrognosisPat = function (newData) {
 
 
 DB.prototype.getOutcomeStaff = function () {
-  var pr_json=require("./data/" + outcomeStaffDataName + ".json");
-  return pr_json;
+  return JSON.parse(fs.readFileSync("./data/" + outcomeStaffDataName + ".json"));
 }
 
 DB.prototype.setOutcomeStaff = function (newData) {

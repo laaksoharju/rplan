@@ -40,11 +40,10 @@ else {
 
 // Read in the "class" to store all our data on the server side
 // If you need to change how data is handled, check the dataHandler.js file!
-const Data = require("./dataHandler.js");
-
+/*const Data = require("./dataHandler.js");
 var data = new Data();
 data.initializeData();
-
+*/
 
 const DB = require("./dbHandler.js")
 var db=new DB();
