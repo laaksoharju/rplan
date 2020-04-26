@@ -284,7 +284,7 @@ export default {
     user-select: none;
   }
     .capacity {
-    grid-template-columns: 11.5em 2.5em 2.5em repeat(52, calc(1.5em)) 2.5em 2.5em;
+    grid-template-columns: 13.5em 2.5em 2.5em repeat(52, calc(1.5em)) 2.5em 2.5em;
   }
   .need {
     grid-template-columns: 14em 2.5em 2.5em repeat(auto-fit, calc(1.5em)) 
@@ -371,7 +371,7 @@ export default {
 
   .year {
     display: grid;
-    grid-template-columns: 11.5em 2.5em 2.5em repeat(52, calc(1.5em)) 2.5em;
+    grid-template-columns: 13.5em 2.5em 2.5em repeat(52, calc(1.5em)) 2.5em;
 
   }
   .diagnosis {
