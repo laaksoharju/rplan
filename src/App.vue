@@ -1,9 +1,19 @@
 <template>
   <div id="app">
+    <navigation></navigation>
     <router-view/>
   </div>
 </template>
+<script>
 
+import navigation from './components/Nav'
+export default {
+  name: 'app',
+  components: {
+    'navigation': navigation
+  }
+}
+</script>
 <style>
 body {
 	margin:0;

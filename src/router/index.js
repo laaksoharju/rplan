@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Admin from '../views/Admin.vue'
+import Schedule from '../views/Schedule.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/admin',
     name: 'Admin',
     component: Admin
+  },
+  {
+    path: '/schedule',
+    name: 'Schedule',
+    component: Schedule
   },
   // {
   //   path: '/about',
