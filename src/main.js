@@ -5,8 +5,8 @@ import router from './router'
 import store from './store'
 import navigation from '@/components/Nav'
 
-
 Vue.config.productionTip = false
+Vue.use(vuetify)
 
 new Vue({
   router,

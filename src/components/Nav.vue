@@ -1,7 +1,7 @@
 <template>
 <nav>
 <v-toolbar dark dense src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg">
-      <v-menu top :close-on-click="closeOnClick">
+      <v-menu :close-on-click="closeOnClick" offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-app-bar-nav-icon v-bind="attrs" v-on="on"></v-app-bar-nav-icon>
         </template>
