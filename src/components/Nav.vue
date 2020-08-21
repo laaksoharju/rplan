@@ -8,9 +8,12 @@
   
         <v-list>
           <v-list-item
-            v-for="(item, index) in links"
-            :key="index"
-            @click="item.route"
+            v-for="item in links"
+              :key="item.title"
+              :to="item.route"
+              link @click="$router.push({ path: item.route })"
+              dense
+              
           >
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item>
@@ -35,7 +38,7 @@
 export default {
   data: () => ({
     drawer: false, 
-    closeOnClick: false,
+    closeOnClick: true,
     links: [
       { icon: 'home', title: 'Home', route: '/'},
       { icon: 'contacts', title: 'Schedule', route: '/Schedule'},

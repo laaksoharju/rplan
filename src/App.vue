@@ -17,7 +17,7 @@ export default {
 <style>
 body {
 	margin:0;
-	font-family: 'Gill Sans';
+	font-family: Roboto,sans-serif;
 }
 
 input {
