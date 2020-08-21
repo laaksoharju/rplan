@@ -423,7 +423,7 @@ export default {
     margin: 0; 
   }
   .modal-box input[type=number] {
-    width:1.5em;
+    width:1.75em;
     font-size: 2em;
     text-align: right;
     border:0;
@@ -431,7 +431,7 @@ export default {
   }
   .modal-section {
     display: inline-block;
-    width:45%;
+    width:90%;
   }
 
   .change-button {
