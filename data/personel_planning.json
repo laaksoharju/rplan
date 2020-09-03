@@ -1,0 +1,38 @@
+[
+  {
+    "namn": "Karin Persson",
+    "img": "ALFKI.jpg", 
+    "dag1": "A",
+    "dag2": "N",
+    "dag3": "A",
+    "dag4": "A",
+    "dag5": "C"
+  },
+  {
+    "namn": "Karl Persson",
+    "img": "LINOD.jpg", 
+    "dag1": "N",
+    "dag2": "C",
+    "dag3": "A",
+    "dag4": "A",
+    "dag5": "N"
+  },
+  {
+    "namn": "Petter Persson",
+    "img": "WOLZA.jpg", 
+    "dag1": "C",
+    "dag2": "A",
+    "dag3": "N",
+    "dag4": "N",
+    "dag5": "A"
+  },
+  {
+    "namn": "Johan Persson",
+    "img": "MAGAA.jpg", 
+    "dag1": "A",
+    "dag2": "A",
+    "dag3": "C",
+    "dag4": "C",
+    "dag5": "A"
+  }
+]
