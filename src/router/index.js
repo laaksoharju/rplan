@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Planning from '../views/Planning.vue'
 import Admin from '../views/Admin.vue'
 import Schedule from '../views/Schedule.vue'
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/schedule',
     name: 'Schedule',
     component: Schedule
+  },
+  {
+    path: '/planning',
+    name: 'Planning',
+    component: Planning
   },
   // {
   //   path: '/about',

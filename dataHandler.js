@@ -39,7 +39,7 @@ Data.prototype.getPrognosisRooms = function () {
 }
 
 /*
-  Function to load initial data from CSV files into the object
+  Function to load initial data from json files into the object
 */
 Data.prototype.initializeJSONTable = function (table) {
       this.data[table] = require("./data/" + table + ".json");

@@ -51,10 +51,15 @@ var db=new DB();
 io.on('connection', function (socket) {
   // Send list of orders and text labels when a client is ready
   socket.on('pageLoaded', function() {
+    console.log("server.js -> socket.on -> pageLoaded");
     socket.emit('initialize', { prognosisPat: db.getPrognosisPat(),
                                 prognosisStaff: db.getPrognosisStaff(),
                                 outcomeStaff: db.getOutcomeStaff(),
                                 prognosisRooms: db.getPrognosisRooms() });
+  });
+  socket.on('pageLoadedPlanning', function() {
+    console.log("server.js -> socket.on -> pageLoadedPlanning");
+    socket.emit('initialize', { personer: db.getPersoner() });
   });
 
   socket.on('updateDB', function(d) {
