@@ -13,8 +13,9 @@ let personelPlanning = "personel_planning";
 let defaultLanguage = "en";
 // getPersoner
 DB.prototype.getPersoner = function () {
-  console.log("Hämtat personer!");
-  return JSON.parse(fs.readFileSync("./data/" + personelPlanning + ".json"));
+  let result=JSON.parse(fs.readFileSync("./data/" + personelPlanning + ".json"))
+  console.log("Hämtat personer! "+result);
+  return result;
 }
 
 DB.prototype.getPrognosisRooms = function () {
