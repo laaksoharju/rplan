@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      Personplannering
+      Personplanering
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -16,114 +16,26 @@
       :items="personer"
       :search="search"
     >
-        <template v-slot:item.namn="{ item }">
-            <span><v-avatar size="36px">
-                <img
-                    alt="Avatar"
-                    :src="'/img/avatar/' + item.img"
-                >
-            </v-avatar>
-            <strong>{{ item.namn.replace(" ","&nbsp;") }}</strong>
-            </span>
-        </template>
-        <template v-slot:item.dag1="{ item }">
-            <v-chip :color="getColor(item.dag1)" dark>{{ item.dag1 }}</v-chip>
-        </template>
-        <template v-slot:item.dag2="{ item }">
-            <v-chip :color="getColor(item.dag2)" dark>{{ item.dag2 }}</v-chip>
-        </template>
-        <template v-slot:item.dag3="{ item }">
-            <v-chip :color="getColor(item.dag3)" dark>{{ item.dag3 }}</v-chip>
-        </template>
-        <template v-slot:item.dag4="{ item }">
-            <v-chip :color="getColor(item.dag4)" dark>{{ item.dag4 }}</v-chip>
-        </template>
-        <template v-slot:item.dag5="{ item }">
-            <v-chip :color="getColor(item.dag5)" dark>{{ item.dag5 }}</v-chip>
-        </template>
-        <template v-slot:item.dag6="{ item }">
-            <v-chip :color="getColor(item.dag6)" dark>{{ item.dag6 }}</v-chip>
-        </template>
-        <template v-slot:item.dag7="{ item }">
-            <v-chip :color="getColor(item.dag7)" dark>{{ item.dag7 }}</v-chip>
-        </template>
-        <template v-slot:item.dag8="{ item }">
-            <v-chip :color="getColor(item.dag8)" dark>{{ item.dag8 }}</v-chip>
-        </template>
-        <template v-slot:item.dag9="{ item }">
-            <v-chip :color="getColor(item.dag9)" dark>{{ item.dag9 }}</v-chip>
-        </template>
-        <template v-slot:item.dag10="{ item }">
-            <v-chip :color="getColor(item.dag10)" dark>{{ item.dag10 }}</v-chip>
-        </template>
-        <template v-slot:item.dag11="{ item }">
-            <v-chip :color="getColor(item.dag11)" dark>{{ item.dag11 }}</v-chip>
-        </template>
-        <template v-slot:item.dag12="{ item }">
-            <v-chip :color="getColor(item.dag12)" dark>{{ item.dag12 }}</v-chip>
-        </template>
-        <template v-slot:item.dag13="{ item }">
-            <v-chip :color="getColor(item.dag13)" dark>{{ item.dag13 }}</v-chip>
-        </template>
-        <template v-slot:item.dag14="{ item }">
-            <v-chip :color="getColor(item.dag14)" dark>{{ item.dag14 }}</v-chip>
-        </template>
-        <template v-slot:item.dag15="{ item }">
-            <v-chip :color="getColor(item.dag15)" dark>{{ item.dag15 }}</v-chip>
-        </template>
-        <template v-slot:item.dag16="{ item }">
-            <v-chip :color="getColor(item.dag16)" dark>{{ item.dag16 }}</v-chip>
-        </template>
-        <template v-slot:item.dag17="{ item }">
-            <v-chip :color="getColor(item.dag17)" dark>{{ item.dag17 }}</v-chip>
-        </template>
-        <template v-slot:item.dag18="{ item }">
-            <v-chip :color="getColor(item.dag18)" dark>{{ item.dag18 }}</v-chip>
-        </template>
-        <template v-slot:item.dag19="{ item }">
-            <v-chip :color="getColor(item.dag19)" dark>{{ item.dag19 }}</v-chip>
-        </template>
-        <template v-slot:item.dag20="{ item }">
-            <v-chip :color="getColor(item.dag20)" dark>{{ item.dag20 }}</v-chip>
-        </template>
-        <template v-slot:item.dag21="{ item }">
-            <v-chip :color="getColor(item.dag21)" dark>{{ item.dag21 }}</v-chip>
-        </template>
-        <template v-slot:item.dag22="{ item }">
-            <v-chip :color="getColor(item.dag22)" dark>{{ item.dag22 }}</v-chip>
-        </template>
-        <template v-slot:item.dag23="{ item }">
-            <v-chip :color="getColor(item.dag23)" dark>{{ item.dag23 }}</v-chip>
-        </template>
-        <template v-slot:item.dag24="{ item }">
-            <v-chip :color="getColor(item.dag24)" dark>{{ item.dag24 }}</v-chip>
-        </template>
-        <template v-slot:item.dag25="{ item }">
-            <v-chip :color="getColor(item.dag25)" dark>{{ item.dag25 }}</v-chip>
-        </template>
-        <template v-slot:item.dag26="{ item }">
-            <v-chip :color="getColor(item.dag26)" dark>{{ item.dag26 }}</v-chip>
-        </template>
-        <template v-slot:item.dag27="{ item }">
-            <v-chip :color="getColor(item.dag27)" dark>{{ item.dag27 }}</v-chip>
-        </template>
-        <template v-slot:item.dag28="{ item }">
-            <v-chip :color="getColor(item.dag28)" dark>{{ item.dag28 }}</v-chip>
-        </template>
-        <template v-slot:item.dag29="{ item }">
-            <v-chip :color="getColor(item.dag29)" dark>{{ item.dag29 }}</v-chip>
-        </template>
-        <template v-slot:item.dag30="{ item }">
-            <v-chip :color="getColor(item.dag30)" dark>{{ item.dag30 }}</v-chip>
-        </template>
-        <template v-slot:item.dag31="{ item }">
-            <v-chip :color="getColor(item.dag31)" dark>{{ item.dag31 }}</v-chip>
-        </template>
-        <template v-slot:item.total="{ item }">
-            <span>
-            <strong>{{ item.total }} h</strong>
-            </span>
-        </template>
+      <template v-slot:body="{ items }">
+        <tbody>
+          <tr v-for="item in items" :key="item.namn">
+            <td>
+              <span>
+                <v-avatar size="36px">
+                  <img alt="Avatar" :src="'/img/avatar/' + item.img">
+                </v-avatar>
+                <strong>{{ item.namn.replace(" ","&nbsp;") }}</strong>
+              </span>
+            </td>
+            <td v-for="n in 31" :key="item.namn+n">
+              <v-chip :color="getColor(item['dag'+n])" dark>{{ item['dag'+n] }}</v-chip>
+            </td>
+            <td>
+              <strong>{{ item.total }} h</strong>
+            </td>
+          </tr>
+        </tbody>
+      </template>
     </v-data-table>
   </v-card>
 </template>
@@ -193,6 +105,7 @@
     
     methods: {
         getColor (v) {
+          console.log(v)
           if (v){
           if (v.charAt(0) == 'N') return 'red'
           else if (v.charAt(0) == 'C') return 'orange'
