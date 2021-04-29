@@ -105,7 +105,6 @@
     
     methods: {
         getColor (v) {
-          console.log(v)
           if (v){
           if (v.charAt(0) == 'N') return 'red'
           else if (v.charAt(0) == 'C') return 'orange'
