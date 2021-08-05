@@ -43,7 +43,8 @@ export default {
       { icon: 'home', title: 'Home', route: '/'},
       { icon: 'contacts', title: 'Schedule', route: '/Schedule'},
       { icon: 'contacts', title: 'Planning', route: '/Planning'}, 
-      { icon: 'contacts', title: 'Admin', route: '/Admin'}, 
+      { icon: 'contacts', title: 'Admin', route: '/Admin'},
+      { icon: 'contacts', title: 'Employee', route: '/EmployeePage'}, 
     ],
   }),
 }

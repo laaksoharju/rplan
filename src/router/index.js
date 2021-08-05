@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Planning from '../views/Planning.vue'
 import Admin from '../views/Admin.vue'
+import EmployeePage from '../views/EmployeePage.vue'
 import Schedule from '../views/Schedule.vue'
 
 Vue.use(VueRouter)
@@ -27,6 +28,11 @@ const routes = [
     path: '/planning',
     name: 'Planning',
     component: Planning
+  },
+  {
+    path: '/employeePage',
+    name: 'EmployeePage',
+    component: EmployeePage
   },
   // {
   //   path: '/about',

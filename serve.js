@@ -57,9 +57,10 @@ io.on('connection', function (socket) {
                                 outcomeStaff: db.getOutcomeStaff(),
                                 prognosisRooms: db.getPrognosisRooms() });
   });
-  socket.on('pageLoadedPlanning', function() {
+  socket.on('pageLoadedPlanning', async function() {
     console.log("server.js -> socket.on -> pageLoadedPlanning");
-    socket.emit('initialize', { personer: db.getPersoner() });
+    let physiciansRegularSchedule = await db.getPhysiciansRegularSchedule();
+    socket.emit('initialize', { personer: db.getPersoner(), physicians: physiciansRegularSchedule });
   });
 
   socket.on('updateDB', function(d) {

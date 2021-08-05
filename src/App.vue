@@ -9,10 +9,18 @@
 <script>
 
 import navigation from './components/Nav'
+import {mapMutations} from 'vuex'
+
 export default {
   name: 'app',
   components: {
     'navigation': navigation
+  },
+  methods: {
+    ...mapMutations(['login'])
+  },
+  created() {
+    this.login('Läk J')
   }
 }
 </script>

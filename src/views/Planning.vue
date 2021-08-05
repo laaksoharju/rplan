@@ -1,51 +1,107 @@
 <template>
-  <v-card>
-    <v-card-title>
-      Personplanering
-      <v-spacer></v-spacer>
-      <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Search"
-        single-line
-        hide-details
-      ></v-text-field>
-    </v-card-title>
-    <v-data-table dense
-      :headers="headers"
-      :items="personer"
-      :search="search"
-    >
-      <template v-slot:body="{ items }">
-        <tbody>
-          <tr v-for="item in items" :key="item.namn">
-            <td>
-              <span>
-                <v-avatar size="36px">
-                  <img alt="Avatar" :src="'/img/avatar/' + item.img">
-                </v-avatar>
-                <strong>{{ item.namn.replace(" ","&nbsp;") }}</strong>
-              </span>
-            </td>
-            <td v-for="n in 31" :key="item.namn+n">
-              <v-chip :color="getColor(item['dag'+n])" dark>{{ item['dag'+n] }}</v-chip>
-            </td>
-            <td>
-              <strong>{{ item.total }} h</strong>
-            </td>
-          </tr>
-        </tbody>
-      </template>
-    </v-data-table>
-  </v-card>
+  <div>
+    <v-card>
+      <v-card-title>
+        Sjuksköterskor
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
+      </v-card-title>
+      <v-data-table dense
+        :headers="headers"
+        :items="personer"
+        :search="search"
+      >
+        <template v-slot:body="{ items }">
+          <tbody>
+            <tr v-for="item in items" :key="item.namn">
+              <td>
+                <span>
+                  <v-avatar size="36px">
+                    <img alt="Avatar" :src="'/img/avatar/' + item.img">
+                  </v-avatar>
+                  <strong>{{ item.namn.replace(" ","&nbsp;") }}</strong>
+                </span>
+              </td>
+              <td v-for="n in 31" :key="item.namn+n">
+                <v-chip :color="getColor(item['dag'+n])" dark>{{ item['dag'+n] }}</v-chip>
+              </td>
+              <td>
+                <strong>{{ item.total }} h</strong>
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </v-data-table>
+    </v-card>
+    <v-card>
+      <v-card-title>
+        Läkare
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
+      </v-card-title>
+      <v-data-table dense
+        :headers="days"
+        :items="physicians"
+        :search="search"
+      >
+        <template v-slot:body="{ items }">
+          <tbody>
+            <tr v-for="item in items" :key="item.name">
+              <td>
+                {{ item.name}}
+              </td>
+              <td v-for="(day,index) in days.slice(1)" :key="item.name+index">
+                <SmallTimeline :start="parseInt(item[day.value+'Line1'])" :end="parseInt(item[day.value+'Line2'])" :startText="item[day.value+'1']" :endText="item[day.value+'2']"/>
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </v-data-table>
+    </v-card>
+  </div>
 </template>
 
 <script>
+  import SmallTimeline from "@/components/SmallTimeline";
+  /*
+    TODO: datum, veckor och markerade helgdagar istf dagX
+          välja tidsspann och ändra önskemål, ändra önskemål per dag osv
+
+  */ 
   export default {
     name:"Planning",
+    components: {
+      SmallTimeline
+    },
     data () {
       return {
         personer: [],
+        physicians: [],
+        days: [
+          {
+            text: '',
+            align: 'start',
+            sortable: true,
+            value: 'name',
+          },
+          { text: 'Måndag', sortable: true, value: 'monday' },
+          { text: 'Tisdag', sortable: true, value: 'tuesday' },
+          { text: 'Onsdag', sortable: true, value: 'wednesday' },
+          { text: 'Torsdag', sortable: true, value: 'thursday' },
+          { text: 'Fredag', sortable: true,  value: 'friday' }
+          ],
         search: '',
         headers: [
           {
@@ -100,6 +156,7 @@
         this.$store.state.socket.on('initialize', function (initData) {
             console.log("Planning -> created -> initialize");
             this.personer = initData.personer;
+            this.physicians = initData.physicians;
         }.bind(this));
     },
     
@@ -116,6 +173,8 @@
     },
   }
 </script>
-<style>
-  .v-data-table>.v-data-table__wrapper>table>tbody>tr>td, .v-data-table>.v-data-table__wrapper>table>thead>tr>th  { padding: 0; }
+<style scoped>
+  .v-data-table>.v-data-table__wrapper>table>tbody>tr>td, .v-data-table>.v-data-table__wrapper>table>thead>tr>th  
+  { padding: 0; }
+
 </style>

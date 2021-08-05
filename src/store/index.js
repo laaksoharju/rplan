@@ -6,9 +6,13 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    socket: io()
+    socket: io(),
+    user: null,
   },
   mutations: {
+    login(state, user) {
+      state.user = user;
+    }
   },
   actions: {
   },

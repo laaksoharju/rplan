@@ -3,6 +3,7 @@
 let csv = require("csvtojson");
 const fs = require('fs');
 
+let physiciansRegularSchedule = "phys-regular";
 let prognosisPatDataName = "prognosis_pat";
 let prognosisStaffDataName = "prognosis_staff";
 let outcomeStaffDataName = "outcome_staff";
@@ -16,6 +17,25 @@ DB.prototype.getPersoner = function () {
   let result=JSON.parse(fs.readFileSync("./data/" + personelPlanning + ".json"))
   console.log("Hämtat personer! "+result);
   return result;
+}
+
+DB.prototype.getPhysiciansRegularSchedule = async function () {
+  const json = await csv({checkType: true, quote:"'"})
+    .fromFile("./data/" + physiciansRegularSchedule + ".csv")
+    .subscribe(d => {
+      d.mondayLine1 = + d.monday1.substring(0,2)*60 + d.monday1.substring(2,2);
+      d.mondayLine2 = + d.monday2.substring(0,2)*60 + d.monday2.substring(2,2);
+      d.tuesdayLine1 = + d.tuesday1.substring(0,2)*60 + d.tuesday1.substring(2,2);
+      d.tuesdayLine2 = + d.tuesday2.substring(0,2)*60 + d.tuesday2.substring(2,2);
+      d.wednesdayLine1 = + d.wednesday1.substring(0,2)*60 + d.wednesday1.substring(2,2);
+      d.wednesdayLine2 = + d.wednesday2.substring(0,2)*60 + d.wednesday2.substring(2,2);
+      d.thursdayLine1 = + d.thursday1.substring(0,2)*60 + d.thursday1.substring(2,2);
+      d.thursdayLine2 = + d.thursday2.substring(0,2)*60 + d.thursday2.substring(2,2);
+      d.fridayLine1 = + d.friday1.substring(0,2)*60 + d.friday1.substring(2,2);
+      d.fridayLine2 = + d.friday2.substring(0,2)*60 + d.friday2.substring(2,2);
+    });
+    console.log(json);
+  return json;
 }
 
 DB.prototype.getPrognosisRooms = function () {
